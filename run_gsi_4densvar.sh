@@ -149,7 +149,7 @@ SETUP="verbose=.true.,reduce_diag=.true.,lwrite_peakwt=.true.,lread_obs_save=$lr
 
 if [[ "$HXONLY" = "YES" ]]; then
    #SETUP="$SETUP,lobserver=.true.,l4dvar=.true." # can't use reduce_diag=T
-   SETUP="$SETUP,miter=0,niter=1"
+   SETUP="$SETUP,l4densvar=F,miter=0,niter=1"
 fi
 if [[ "$HXONLY" != "YES" ]]; then
    if [[ $beta_s0 > 0.999 ]]; then # 3dvar or hybrid gain
@@ -801,7 +801,8 @@ done
 
 # Run gsi.
 #if [ -s ./satbias_in ] && [ -s ./satbias_angle ] && [ -s ./sfcf03 ] && [ -s ./sfcf06 ] && [ -s ./sfcf09 ] && [ -s ./sigf03 ] && [ -s ./sigf06 ] && [ -s ./sigf09 ] ; then
-if [[ $NOSAT == "YES" ||  -s ./satbias_in ]]  && [ -s ./sfcf03 ] && [ -s ./sfcf06 ] && [ -s ./sfcf09 ] && [ -s ./sigf03 ] && [ -s ./sigf06 ] && [ -s ./sigf09 ] ; then
+#if [[ $NOSAT == "YES" ||  -s ./satbias_in ]]  && [ -s ./sfcf03 ] && [ -s ./sfcf06 ] && [ -s ./sfcf09 ] && [ -s ./sigf03 ] && [ -s ./sigf06 ] && [ -s ./sigf09 ] ; then
+if [[ $NOSAT == "YES" ||  -s ./satbias_in ]]  && [ -s ./sfcf06 ] &&  [ -s ./sigf06 ] ; then
 cat gsiparm.anl
 ulimit -s unlimited
 ulimit -a
@@ -820,13 +821,13 @@ else
 echo "some input files missing, exiting ..."
 ls -l ./satbias_in
 ls -l ./satbias_angle
-ls -l ./sfcf03
+#ls -l ./sfcf03
 ls -l ./sfcf06
-ls -l ./sfcf09
+#ls -l ./sfcf09
 ls -l ./sfcanl
-ls -l ./sigf03
+#ls -l ./sigf03
 ls -l ./sigf06
-ls -l ./sigf09
+#ls -l ./sigf09
 exit 1
 fi
 
@@ -977,12 +978,12 @@ fi
 if [ ! -s $savdir/diag_conv_t_ges.${adate}_${charnanal2}.nc4 ]; then
    exit 1
 fi
-if [ ! -s $savdir/diag_conv_q_ges.${adate}_${charnanal2}.nc4 ]; then
-   exit 1
-fi
-if [ ! -s $savdir/diag_conv_ps_ges.${adate}_${charnanal2}.nc4 ]; then
-   exit 1
-fi
+#if [ ! -s $savdir/diag_conv_q_ges.${adate}_${charnanal2}.nc4 ]; then
+#   exit 1
+#fi
+#if [ ! -s $savdir/diag_conv_ps_ges.${adate}_${charnanal2}.nc4 ]; then
+#   exit 1
+#fi
 
 fi # skipcat
 
