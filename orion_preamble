@@ -1,13 +1,13 @@
 #!/bin/sh
 ##SBATCH -q urgent
-#SBATCH -t 01:30:00
+#SBATCH -t 01:45:00
 #SBATCH -A gsienkf
 #SBATCH -N 20  
 #SBATCH --ntasks-per-node=40
 #SBATCH -p orion
-#SBATCH -J jedi_C96_lgetkf_sondesonly
-#SBATCH -e jedi_C96_lgetkf_sondesonly.err
-#SBATCH -o jedi_C96_lgetkf_sondesonly.out
+#SBATCH -J da_gsi_C96_lgetkf_sondesonly
+#SBATCH -e da_gsi_C96_lgetkf_sondesonly.err
+#SBATCH -o da_gsi_C96_lgetkf_sondesonly.out
 
 export NODES=$SLURM_NNODES
 export corespernode=$SLURM_CPUS_ON_NODE
