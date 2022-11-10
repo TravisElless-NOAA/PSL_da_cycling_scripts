@@ -230,6 +230,9 @@ echo "  --exclusive --cpu-bind=cores --verbose ${interpsrcdir}/fv3interp.exe" >>
 srun -N $totnodes -n $nprocs -c $count --ntasks-per-node=$mpitaskspernode \
   --exclusive --cpu-bind=cores --verbose ${interpsrcdir}/fv3interp.exe
 
+#srun -N $totnodes -n $nprocs --ntasks-per-node=$mpitaskspernode \
+#        ${interpsrcdir}/fv3interp.exe
+
 jedi_done=no
 
 number_members=80

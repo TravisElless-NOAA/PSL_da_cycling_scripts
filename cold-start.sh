@@ -2,8 +2,8 @@
 
 # cold start script
 
- run_dir=/work2/noaa/da/weihuang/cycling/gsi_C96_lgetkf_sondesonly
- datestr=2020012606
+ run_dir=/work2/noaa/da/weihuang/cycling/jedi_C96_lgetkf_sondesonly
+ datestr=2020010100
  cold_start_dir=${run_dir}/${datestr}
 
  mkdir -p ${cold_start_dir}

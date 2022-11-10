@@ -26,7 +26,7 @@ export beta=1000 # percentage of enkf increment (*10)
 # in this case, to recenter around EnVar analysis set recenter_control_wgt=100
 export recenter_control_wgt=100
 export recenter_ensmean_wgt=`expr 100 - $recenter_control_wgt`
-export exptname="gsi_C${RES}_lgetkf_sondesonly"
+export exptname="jedi_C${RES}_lgetkf_sondesonly"
 # for 'passive' or 'replay' cycling of control fcst 
 export replay_controlfcst='false'
 export enkfonly='true' # pure EnKF
@@ -36,22 +36,29 @@ export ensda="enkf_run.sh"
 export rungsi='run_gsi_4densvar.sh'
 export rungfs='run_fv3.sh' # ensemble forecast
 
+#export jedirun='false'
+export jedirun='true'
+export jedidatadir=/work2/noaa/gsienkf/weihuang/jedi/case_study/Data
+#export jeditemplatedir=/work2/noaa/gsienkf/weihuang/production/run/templates
+export jeditemplatedir=/work2/noaa/da/weihuang/cycling/scripts/jedi_C96_lgetkf_sondesonly/templates.GSI_QConly
+export jediblddir=/work2/noaa/gsienkf/weihuang/production/build/fv3-bundle
+
 #export do_cleanup='true' # if true, create tar files, delete *mem* files.
-#export cleanup_fg='true'
-#export cleanup_ensmean='true'
-#export cleanup_ensmean_enkf='true'
-#export cleanup_anal='true'
-#export cleanup_controlanl='true'
-#export cleanup_observer='true' 
-#export resubmit='true'
+export cleanup_fg='true'
+export cleanup_ensmean='true'
+export cleanup_ensmean_enkf='true'
+export cleanup_anal='true'
+export cleanup_controlanl='true'
+export cleanup_observer='true' 
+export resubmit='true'
 export do_cleanup='false' # if true, create tar files, delete *mem* files.
-export cleanup_fg='false'
-export cleanup_ensmean='false'
-export cleanup_ensmean_enkf='false'
-export cleanup_anal='false'
-export cleanup_controlanl='false'
-export cleanup_observer='false' 
-export resubmit='false'
+#export cleanup_fg='false'
+#export cleanup_ensmean='false'
+#export cleanup_ensmean_enkf='false'
+#export cleanup_anal='false'
+#export cleanup_controlanl='false'
+#export cleanup_observer='false' 
+#export resubmit='false'
 export replay_run_observer='false' # run observer on replay control forecast
 # python script checkdate.py used to check
 # YYYYMMDDHH analysis date string to see if
@@ -72,16 +79,15 @@ export controlanal="false" # hybrid-cov high-res control analysis as in ops
 # (hybgain will be set to false if controlanal=true)
 
 # override values from above for debugging.
-export cleanup_ensmean='false'
-export cleanup_ensmean_enkf='false'
-export recenter_fcst="false"
-export cleanup_controlanl='false'
-export cleanup_observer='false'
-export cleanup_anal='false'
-export recenter_anal="false"
-export cleanup_fg='false'
+#export cleanup_ensmean='false'
+#export cleanup_ensmean_enkf='false'
+#export recenter_fcst="false"
+#export cleanup_controlanl='false'
+#export cleanup_observer='false'
+#export cleanup_anal='false'
+#export recenter_anal="false"
+#export cleanup_fg='false'
 #export resubmit='false'
-export resubmit='true'
 export do_cleanup='false'
 export save_hpss_subset="false" # save a subset of data each analysis time to HPSS
 export save_hpss="false"
@@ -113,13 +119,14 @@ elif [ "$machine" == 'orion' ]; then
    export obs_datapath=/work/noaa/rstprod/dump
    ulimit -s unlimited
    source $MODULESHOME/init/sh
+   source ~/intelenv
    module use /apps/contrib/NCEP/libs/hpc-stack/modulefiles/stack
    module load hpc/1.1.0
    module load hpc-intel/2018.4
    module unload mkl/2020.2
    module load mkl/2018.4
    module load hpc-impi/2018.4
-   module load python/3.7.5
+  #module load python/3.7.5
    module load hdf5/1.10.6-parallel
    module load wgrib/1.8.0b
   #export PYTHONPATH=/home/jwhitake/.local/lib/python3.7/site-packages
@@ -425,7 +432,7 @@ elif [ "$machine" == 'orion' ]; then
    export FIXDIR=/work/noaa/nems/emc.nemspara/RT/NEMSfv3gfs/input-data-20220414
    #export FIXDIR_gcyc=$FIXDIR
    export FIXDIR_gcyc=/work/noaa/global/glopara/fix_NEW # for GFSv16
-   export python=`which python`
+  #export python=`which python`
    export fv3gfspath=/work/noaa/global/glopara
    export FIXFV3=$fv3gfspath/fix_nco_gfsv16/fix_fv3_gmted2010
    export FIXGLOBAL=$fv3gfspath/fix_nco_gfsv16/fix_am
@@ -468,7 +475,6 @@ fi
 
 #export ANAVINFO=${fixgsi}/global_anavinfo_allhydro.l${LEVS}.txt
 #export ANAVINFO=${fixgsi}/global_anavinfo.l${LEVS}.txt
-#export ANAVINFO=${enkfscripts}/global_anavinfo.l${LEVS}.txt.dpres
 export ANAVINFO=${enkfscripts}/global_anavinfo_enkf.l127.txt
 export ANAVINFO_ENKF=${ANAVINFO}
 export HYBENSINFO=${fixgsi}/global_hybens_info.l${LEVS}.txt # only used if readin_beta or readin_localization=T
