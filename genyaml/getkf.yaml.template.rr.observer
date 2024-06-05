@@ -1,0 +1,94 @@
+# Background/anaysis geometry
+# ---------------------------
+geometry:
+  fms initialization:
+    namelist filename: Data/fv3files/fmsmpp.nml
+    field table filename: Data/fv3files/field_table
+  akbk: Data/fv3files/akbk127.nc4
+  layout:
+  - !ENV ${observer_layout_x}
+  - !ENV ${observer_layout_y}
+  npx: $(npx_ges)
+  npy: $(npy_ges)
+  npz: $(npz_ges)
+  field metadata override: Data/fieldmetadata/gfs-restart.yaml
+time window:
+  begin: '$(ATM_WINDOW_BEGIN)'
+  length: $(ATM_WINDOW_LENGTH)
+
+#increment variables: [ua, va, t, DZ, delp, ice_wat, liq_wat, sphum, o3mr]
+
+background:
+  date: '$(BKG_ISOTIME)'
+  members from template:
+    pattern: '%mem%'
+    nmembers: 1
+    zero padding: 3
+    template:
+      datetime: $(BKG_ISOTIME)
+      datapath: $(MEMBERDATAPATH)
+      filename_core: fv_core.res.nc
+      filename_trcr: fv_tracer.res.nc
+      filename_sfcd: sfc_data.nc
+      filename_sfcw: fv_srf_wnd.res.nc
+      filename_cplr: coupler.res
+      filetype: fms restart
+      state variables: [ua,va,t,DZ,delp,sphum,ice_wat,liq_wat,o3mr,phis,
+                        slmsk,sheleg,tsea,vtype,stype,vfrac,stc,smc,snwdph,
+                        u_srf,v_srf,f10m]
+
+control member:
+  date: '$(BKG_ISOTIME)'
+  datetime: '$(BKG_ISOTIME)'
+  datapath: mem000/INPUT
+  filename_core: fv_core.res.nc
+  filename_trcr: fv_tracer.res.nc
+  filename_sfcd: sfc_data.nc
+  filename_sfcw: fv_srf_wnd.res.nc
+  filename_cplr: coupler.res
+  filetype: fms restart
+  state variables: [ua,va,t,DZ,delp,sphum,ice_wat,liq_wat,o3mr,phis,
+                    slmsk,sheleg,tsea,vtype,stype,vfrac,stc,smc,snwdph,
+                    u_srf,v_srf,f10m]
+
+driver:
+  read HX from disk: false
+  do posterior observer: false
+ #do test prints: true
+  do test prints: false
+  save posterior mean: false
+  save posterior ensemble: false
+  save prior mean: false
+  save posterior mean increment: false
+  save posterior ensemble increments: false
+  update obs config with geometry info: false
+  run as observer only: true
+  use control member: true
+
+local ensemble DA:
+  solver: GETKF
+  vertical localization:
+    fraction of retained variance: .975
+    lengthscale: 2.1
+    lengthscale units: logp
+  inflation:
+    rtps: 0.85
+    rtpp: 0.0
+    mult: 1.0
+
+# Analysis output
+output:
+  filetype: auxgrid
+  gridtype: gaussian
+  filename: analysis/mean/mean.
+
+# Observing system
+# ----------------
+observations:
+  observers:
+  - !INC sondes.yaml
+  - !INC amsua_n15.yaml
+  - !INC amsua_n18.yaml
+  - !INC amsua_n19.yaml
+  - !INC amsua_metop-b.yaml
+  - !INC amsua_metop-c.yaml

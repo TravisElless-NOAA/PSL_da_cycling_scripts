@@ -1,0 +1,50 @@
+obs space:
+  name: sondes
+  distribution:
+    !INC distribution.yaml
+  obsdatain:
+    engine: 
+      type: H5File
+      obsfile: $(SONDES_OBSINFILE)
+    obsgrouping:
+      group variables: ["stationIdentification"]
+      sort variable: "pressure"
+      sort order: "descending"
+  obsdataout:
+    engine:
+      type: H5File
+      obsfile: $(SONDES_OBSOUTFILE)
+  io pool:
+    max pool size: 1
+  simulated variables: [airTemperature, virtualTemperature, windEastward, windNorthward, specificHumidity]
+obs operator:
+  name: Composite
+  components:
+   - name: VertInterp
+     variables:
+     - name: airTemperature
+     - name: virtualTemperature
+     - name: windEastward
+     - name: windNorthward
+     - name: specificHumidity
+linear obs operator:
+  name: Composite
+  components:
+   - name: VertInterp
+     variables:
+     - name: airTemperature
+     - name: virtualTemperature
+     - name: windEastward
+     - name: windNorthward
+     - name: specificHumidity
+obs filters:
+  #
+  # Reject all obs with PreQC mark already set above 3
+  - filter: PreQC
+    maxvalue: 3
+    action:
+      name: reject
+obs localizations:
+  - localization method: Horizontal Gaspari-Cohn
+    lengthscale: 1250e3
+    max nobs: 10000

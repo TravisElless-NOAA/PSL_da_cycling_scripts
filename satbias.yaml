@@ -1,0 +1,5 @@
+dump: gdas
+gsi_bc_root: /work2/noaa/stmp/telless/PSL_gsi_jedi/PSL_GSI_sondes_amusa_n19/2022010312/  
+ufo_bc_root: /work2/noaa/da/telless/git/new_PSL_jedi_cycling_workflow/gsi-jedi-cycling/test_out/ 
+work_root: /work2/noaa/stmp/telless/test_run_jedi_letkf/
+satbias2ioda: /work2/noaa/da/telless/git/GDASApp_Jun_1/GDASApp/build/bin/satbias2ioda.x 
