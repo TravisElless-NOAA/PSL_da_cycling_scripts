@@ -26,19 +26,19 @@ obs bias:
   variational bc:
     predictors:
     - name: constant
-    - name: lapse_rate
+    - name: lapseRate
       order: 2
       tlapse: &amsua_metop-c_tlap Data/satbias/amsua_metop-c_tlapmean.txt
-    - name: lapse_rate
+    - name: lapseRate
       tlapse: *amsua_metop-c_tlap
-    - name: emissivity
-    - name: scan_angle
+    - name: emissivityJacobian
+    - name: sensorScanAngle
       order: 4
-    - name: scan_angle
+    - name: sensorScanAngle
       order: 3
-    - name: scan_angle
+    - name: sensorScanAngle
       order: 2
-    - name: scan_angle
+    - name: sensorScanAngle
 
 obs post filters: 
 # Step 0-A: Create Diagnostic Flags

@@ -1,6 +1,6 @@
 #source $MODULESHOME/init/sh
  module purge
- module use /work2/noaa/da/telless/git/GDASApp_May_7/GDASApp/modulefiles
+ module use /work2/noaa/da/telless/git/GDASApp_Jun_5/GDASApp/modulefiles
  module load GDAS/orion
  module load slurm
 

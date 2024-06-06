@@ -40,7 +40,7 @@ export rungfs='run_fv3.sh' # ensemble forecast
 #export jedirun='false'
 export jedirun='true'
 export jedidatadir=/work2/noaa/da/weihuang/cycling/Data/
-export jediblddir=/work2/noaa/da/telless/git/GDASApp_May_7/GDASApp/build/
+export jediblddir=/work2/noaa/da/telless/git/GDASApp_Jun_5/GDASApp/build/
 
 #export do_cleanup='true' # if true, create tar files, delete *mem* files.
 #export cleanup_fg='true'

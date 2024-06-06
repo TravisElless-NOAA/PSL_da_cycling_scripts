@@ -67,6 +67,7 @@ driver:
 
 local ensemble DA:
   solver: GETKF
+  use linear observer: true
   vertical localization:
     fraction of retained variance: .975
     lengthscale: 2.1
